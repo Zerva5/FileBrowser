@@ -13,6 +13,7 @@
 #include "include/backend/statusbar_func.h"
 
 //DOES IT WORK!!!:
+//IT WORKS WTF
 
 int main(){
     bool active = true;
