@@ -93,6 +93,7 @@ void read_directory(open_directory *openDir){
         item_path_by_index(&tempPath, openDir, i);
 
         stat(tempPath, (*openDir->itemsStat)[i]);
+        free(tempPath);
     }
 
     closedir(currentDir);
@@ -154,13 +155,25 @@ ERROR_STATE close_directory(open_directory *oldDir){
         }
     }
 
+    for (int i = 0; i < *oldDir->itemCount; ++i) {
+        if((*oldDir->itemsStat)[i] != NULL){
+            free((*oldDir->itemsStat)[i]);
+        }
+    }
+
     if(oldDir->items != NULL){
         free(oldDir->items);
+    }
+
+    if(oldDir->itemsStat != NULL){
+        free(oldDir->itemsStat);
     }
 
     if(oldDir->path != NULL){
         free(oldDir->path);
     }
+
+//    if(oldDir->)
 
     if(oldDir->name != NULL){
         free(oldDir->name);

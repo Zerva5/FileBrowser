@@ -77,12 +77,16 @@ void refresh_status_data(status_window ** statusWindow){
     // get stat info and get item owner
     stat(tempPath, &statbuffer);
     pwdBuffer = getpwuid(statbuffer.st_uid);
+    free((*statusWindow)->itemOwner);
     (*statusWindow)->itemOwner = strdup(pwdBuffer->pw_name);
 
     // Get the itemcount inside the directory
     count_directory_items(&(*statusWindow)->itemCount, tempPath);
 
+    free(tempPath);
+
     //Convert the type integer to a string
+    free((*statusWindow)->type);
     convert_type_to_string(&(*statusWindow)->type, (*(*statusWindow)->directory->items)[(*statusWindow)->directory->selectedIndex]->d_type);
 
     // Get the itemname
